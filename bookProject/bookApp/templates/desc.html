@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Add books</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+
+    <h1>{{ book.title }}</h1>
+    <h3>ID: {{ book.id }}</h3>
+    <h3>Description:{{ book.desc }}</h3>
+    
+    <h3>Authors</h3>
+    <ul>
+        {% for author in authors %}
+        <li>{{ author.first_name }} {{author.last_name }}</li>
+        {% endfor %}
+    </ul>
+    
+    <form action="/authors/add/{{ book.id }}" method="post">
+        {% csrf_token %}
+        <p>
+            <select name="author_id">
+                {% for author in all_authors %}
+                <option value={{ author.id }}>{{ author.first_name }} {{author.last_name }}</option>
+                {% endfor %}
+            </select>
+        </p>
+        <button type="submit">Add</button>
+    </form>
+        
+</body>
+</html>
